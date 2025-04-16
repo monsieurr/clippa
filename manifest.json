@@ -1,0 +1,33 @@
+{
+    "manifest_version": 3,
+    "name": "Clipboard Appender",
+    "version": "1.0",
+    "description": "Append multiple clipboard selections together by consecutive copy operations",
+    "permissions": ["clipboardRead", "clipboardWrite", "storage", "commands", "notifications"],
+    "action": {
+      "default_popup": "popup.html",
+      "default_title": "Clipboard Appender"
+    },
+    "background": {
+      "scripts": ["background.js"]
+    },
+    "commands": {
+      "append-clipboard": {
+        "suggested_key": {
+          "default": "Alt+C",
+          "mac": "Alt+C"
+        },
+        "description": "Toggle clipboard append mode"
+      }
+    },
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["content.js"]
+      }
+    ],
+    "icons": {
+      "48": "icons/icon-48.png",
+      "96": "icons/icon-96.png"
+    }
+  }

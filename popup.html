@@ -1,0 +1,160 @@
+<!-- popup.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Clipboard Appender</title>
+  <style>
+    body {
+      width: 350px;
+      font-family: system-ui, sans-serif;
+      padding: 12px;
+    }
+    
+    h2 {
+      margin-top: 0;
+      color: #333;
+      font-size: 18px;
+    }
+    
+    .key-combo {
+      display: inline-block;
+      background: #f0f0f0;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      padding: 2px 5px;
+      font-family: monospace;
+      font-size: 0.9em;
+    }
+    
+    #current-buffer {
+      width: 100%;
+      height: 100px;
+      margin-bottom: 10px;
+      font-family: monospace;
+      resize: vertical;
+      border: 1px solid #ccc;
+      padding: 8px;
+      box-sizing: border-box;
+    }
+    
+    .controls {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 15px;
+    }
+    
+    button {
+      padding: 8px 12px;
+      background-color: #0060df;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    button:hover {
+      background-color: #0050b1;
+    }
+    
+    button.secondary {
+      background-color: #ddd;
+      color: #333;
+    }
+    
+    button.secondary:hover {
+      background-color: #ccc;
+    }
+    
+    h3 {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+    
+    .history-item {
+      padding: 8px;
+      border: 1px solid #eee;
+      margin-bottom: 8px;
+      border-radius: 4px;
+      position: relative;
+    }
+    
+    .history-item pre {
+      margin: 0;
+      font-family: monospace;
+      white-space: pre-wrap;
+      max-height: 60px;
+      overflow-y: auto;
+    }
+    
+    .history-item .actions {
+      display: flex;
+      gap: 5px;
+      margin-top: 5px;
+    }
+    
+    .history-item .actions button {
+      padding: 2px 6px;
+      font-size: 12px;
+    }
+    
+    .status {
+      color: green;
+      font-size: 14px;
+      height: 20px;
+      margin-top: 5px;
+    }
+    
+    #history-container {
+      max-height: 300px;
+      overflow-y: auto;
+      margin-top: 10px;
+    }
+    
+    .mode-status {
+      padding: 5px 10px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      text-align: center;
+      font-weight: bold;
+    }
+    
+    .mode-enabled {
+      background-color: #e6f3e6;
+      color: #2e7d32;
+    }
+    
+    .mode-disabled {
+      background-color: #f5f5f5;
+      color: #757575;
+    }
+  </style>
+</head>
+<body>
+  <h2>Clipboard Appender</h2>
+  
+  <div id="mode-indicator" class="mode-status mode-disabled">
+    Append Mode: Off
+  </div>
+  
+  <p>Press <span class="key-combo" id="shortcut-key">Alt+C</span> to toggle append mode. When enabled, copied text will accumulate in the buffer below.</p>
+  
+  <textarea id="current-buffer" placeholder="Current clipboard buffer will appear here"></textarea>
+  
+  <div class="controls">
+    <button id="copy-buffer">Copy to Clipboard</button>
+    <button id="clear-buffer" class="secondary">Clear Buffer</button>
+    <button id="toggle-mode">Toggle Append Mode</button>
+  </div>
+  
+  <h3>Copy History</h3>
+  <div class="controls">
+    <button id="clear-history" class="secondary">Clear History</button>
+  </div>
+  
+  <div id="history-container"></div>
+  <div class="status" id="status-message"></div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
