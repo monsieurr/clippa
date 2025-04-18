@@ -176,4 +176,29 @@ document.addEventListener('DOMContentLoaded', () => {
         statusMessage.textContent = '';
       }, 3000);
     }
+
+    const highlightToggle = document.getElementById('highlight-toggle');
+
+    // Load highlight preference
+    browser.storage.local.get('highlightEnabled')
+      .then(result => {
+        const highlightEnabled = result.highlightEnabled !== false; // Default to true
+        highlightToggle.checked = highlightEnabled;
+      });
+
+    // Handle highlight toggle
+    highlightToggle.addEventListener('change', () => {
+      const highlightEnabled = highlightToggle.checked;
+      
+      // Save preference
+      browser.storage.local.set({ highlightEnabled });
+      
+      // Notify content scripts
+      browser.runtime.sendMessage({ 
+        action: 'setHighlightEnabled', 
+        enabled: highlightEnabled 
+      });
+      
+      showStatus(highlightEnabled ? 'Highlighting enabled' : 'Highlighting disabled');
+    });
   });

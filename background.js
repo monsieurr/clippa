@@ -69,6 +69,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
   } else if (message.action === "clearBuffer") {
     clipboardBuffer = "";
     browser.storage.local.set({ currentBuffer: "" });
+    // Notify content scripts to clear highlights
     notifyContentScripts({ action: "bufferCleared" });
     sendResponse({ success: true });
   } else if (message.action === "clearHistory") {
